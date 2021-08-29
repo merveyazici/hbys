@@ -1,0 +1,42 @@
+﻿@model HOSPITALMVC.ViewModels.AppointmentFormViewModel
+@{
+    ViewBag.Title = "newAppoint";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Randevu</h2>
+@using (Html.BeginForm("Save", "Appointment", FormMethod.Post))
+{
+<div class="form-group">
+
+
+    <br />
+    <label for="DATETIME_">TARİH</label>
+    @Html.LabelForModel()
+    <br />
+    @Html.TextBoxFor(m => m.appointment.DATETIME_, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+
+</div>
+
+<div class="form-group">
+    <br />
+    <label for="DOCTORID">DOKTOR ADI</label>
+    @Html.LabelForModel()
+    <br />
+    
+    @Html.DropDownListFor(m => m.appointment.DOCTORID, new SelectList(Model.doctor, "ID", "FIRSTNAME"), "Doktor Seçiniz", new { @class = "form-control" })
+</div>
+
+<div class="form-group">
+    <br />
+    <label for="PATIENTID">HASTA ADI</label>
+    @Html.LabelForModel()
+    <br />
+ 
+    @Html.DropDownListFor(m => m.appointment.PATIENTID, new SelectList(Model.patient, "ID", "FIRSTNAME"), "Hasta Seçiniz", new { @class = "form-control" })
+</div>
+
+    @Html.HiddenFor(m => m.appointment.ID)
+    <button type="submit" class="btn btn-success">Kaydet</button>
+}
+

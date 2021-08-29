@@ -1,0 +1,37 @@
+﻿@model List<HOSPITALMVC.Models.EntityFramework.APPOINTMENT>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Yeni Randevu", "newAppoint", null,new {@class="btn btn-success" })
+
+<h2>Randevular</h2>
+
+<table class="table table-bordered">
+    <thread>
+        <tr>
+            <th>Tarih</th>
+            <th>Doktor Adı</th>
+            <th>Hasta Adı</th>
+            <th>Güncelle</th>
+            <th>Sil</th>
+        </tr>
+
+    </thread>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+        <tr>
+            <td>@appointment.DATETIME_.Value.ToString("dd-MM-yyyy")</td>
+            <td>@appointment.DOCTOR.FIRSTNAME</td>
+            <td>@appointment.PATIENT.FIRSTNAME</td>
+            <td>@Html.ActionLink("Güncelle", "Update", new { id = appointment.ID }, new { @class = "btn btn-primary" })</td>
+            <td>@Html.ActionLink("Sil", "Delete", new { id = appointment.ID }, new { @class = "btn btn-danger" })</td>
+        </tr>
+        }
+    </tbody>
+    <tr>
+        <td>    </td>
+    </tr>
+</table>

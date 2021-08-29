@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HOSPITALModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="HOSPITALEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="APPOINTMENT" EntityType="HOSPITALModel.APPOINTMENT" />
+    <EntitySet Name="DOCTOR" EntityType="HOSPITALModel.DOCTOR" />
+    <EntitySet Name="PATIENT" EntityType="HOSPITALModel.PATIENT" />
+    <AssociationSet Name="FK_APPOINTMENT_DOCTOR" Association="HOSPITALModel.FK_APPOINTMENT_DOCTOR">
+      <End Role="DOCTOR" EntitySet="DOCTOR" />
+      <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_APPOINTMENT_PATIENT" Association="HOSPITALModel.FK_APPOINTMENT_PATIENT">
+      <End Role="PATIENT" EntitySet="PATIENT" />
+      <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="APPOINTMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DATETIME_" Type="DateTime" Precision="0" />
+    <Property Name="DOCTORID" Type="Int32" />
+    <Property Name="PATIENTID" Type="Int32" />
+    <NavigationProperty Name="DOCTOR" Relationship="HOSPITALModel.FK_APPOINTMENT_DOCTOR" FromRole="APPOINTMENT" ToRole="DOCTOR" />
+    <NavigationProperty Name="PATIENT" Relationship="HOSPITALModel.FK_APPOINTMENT_PATIENT" FromRole="APPOINTMENT" ToRole="PATIENT" />
+  </EntityType>
+  <EntityType Name="DOCTOR">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="LASTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="PHONENUMBER" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="ADDRESS_" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="APPOINTMENT" Relationship="HOSPITALModel.FK_APPOINTMENT_DOCTOR" FromRole="DOCTOR" ToRole="APPOINTMENT" />
+    <Property Name="STATUS" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PATIENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FIRSTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="LASTNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="INSURANCENO" Type="Int32" />
+    <Property Name="PHONENUMBER" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="ADDRESS_" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="APPOINTMENT" Relationship="HOSPITALModel.FK_APPOINTMENT_PATIENT" FromRole="PATIENT" ToRole="APPOINTMENT" />
+    <Property Name="STATUS" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_APPOINTMENT_DOCTOR">
+    <End Type="HOSPITALModel.DOCTOR" Role="DOCTOR" Multiplicity="0..1" />
+    <End Type="HOSPITALModel.APPOINTMENT" Role="APPOINTMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCTOR">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="APPOINTMENT">
+        <PropertyRef Name="DOCTORID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_APPOINTMENT_PATIENT">
+    <End Type="HOSPITALModel.PATIENT" Role="PATIENT" Multiplicity="0..1" />
+    <End Type="HOSPITALModel.APPOINTMENT" Role="APPOINTMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PATIENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="APPOINTMENT">
+        <PropertyRef Name="PATIENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

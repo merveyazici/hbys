@@ -1,0 +1,41 @@
+﻿@model HOSPITALMVC.Models.EntityFramework.DOCTOR
+@{
+    ViewBag.Title = "newDoctor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Doktorlar</h2>
+
+
+@using (Html.BeginForm("newDoctor", "Doctor", FormMethod.Post))
+{
+<div class="form-group">
+    <label for="FIRSTNAME">AD</label>
+    @Html.LabelForModel()
+    <br />
+    @Html.TextBoxFor(m => m.FIRSTNAME, new { @class = "form-control" })
+
+    <br />
+    <label for="LASTNAME">SOYAD</label>
+    @Html.LabelForModel()
+    <br />
+    @Html.TextBoxFor(m => m.LASTNAME, new { @class = "form-control" })
+
+    <br />
+    <label for="PHONENUMBER">TELEFON NUMARASI</label>
+    @Html.LabelForModel()
+    <br />
+    @Html.TextBoxFor(m => m.PHONENUMBER, new { @class = "form-control" })
+
+    <br />
+    <label for="ADDRESS_">ADRES</label>
+    @Html.LabelForModel()
+    <br />
+    @Html.TextBoxFor(m => m.ADDRESS_, new { @class = "form-control" })
+
+
+
+</div>
+    @Html.HiddenFor(m => m.ID)
+    <button type="submit" class="btn btn-success">Kaydet</button>
+}

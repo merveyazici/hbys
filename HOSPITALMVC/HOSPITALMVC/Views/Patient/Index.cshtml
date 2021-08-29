@@ -1,0 +1,44 @@
+﻿@using HOSPITALMVC.Models.EntityFramework
+@model List<PATIENT>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<a class="btn btn-success" href="/Patient/newPatient">Hasta Ekle</a>*@
+
+@Html.ActionLink("Hasta Ekle", "newPatient", null, new { @class = "btn btn-success" })
+
+<h2>Hasta Listesi</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>AD</th>
+            <th>SOYAD</th>
+            <th>TELEFON</th>
+            <th>SİGORTA NO</th>
+            <th>ADRES</th>
+            <th>GÜNCELLE</th>
+            <th>SİL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var patient in Model)
+        {
+            <tr>
+                <td>@patient.FIRSTNAME</td>
+                <td>@patient.LASTNAME</td>
+                <td>@patient.PHONENUMBER</td>
+
+                <td>@patient.INSURANCENO</td>
+                <td>@patient.ADDRESS_</td>
+                <td><a class="btn btn-primary" href="/Patient/Update/@patient.ID">Güncelle</a></td>
+                <td><a class="btn btn-warning" href="/Patient/Delete/@patient.ID">Sil</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HOSPITALModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="APPOINTMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DATETIME_" Type="date" />
+    <Property Name="DOCTORID" Type="int" />
+    <Property Name="PATIENTID" Type="int" />
+  </EntityType>
+  <EntityType Name="DOCTOR">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FIRSTNAME" Type="varchar" MaxLength="15" />
+    <Property Name="LASTNAME" Type="varchar" MaxLength="15" />
+    <Property Name="PHONENUMBER" Type="char" MaxLength="10" />
+    <Property Name="ADDRESS_" Type="varchar" MaxLength="20" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <EntityType Name="PATIENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FIRSTNAME" Type="varchar" MaxLength="15" />
+    <Property Name="LASTNAME" Type="varchar" MaxLength="15" />
+    <Property Name="INSURANCENO" Type="int" />
+    <Property Name="PHONENUMBER" Type="char" MaxLength="10" />
+    <Property Name="ADDRESS_" Type="varchar" MaxLength="20" />
+    <Property Name="STATUS" Type="bit" />
+  </EntityType>
+  <Association Name="FK_APPOINTMENT_DOCTOR">
+    <End Role="DOCTOR" Type="Self.DOCTOR" Multiplicity="0..1" />
+    <End Role="APPOINTMENT" Type="Self.APPOINTMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DOCTOR">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="APPOINTMENT">
+        <PropertyRef Name="DOCTORID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_APPOINTMENT_PATIENT">
+    <End Role="PATIENT" Type="Self.PATIENT" Multiplicity="0..1" />
+    <End Role="APPOINTMENT" Type="Self.APPOINTMENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PATIENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="APPOINTMENT">
+        <PropertyRef Name="PATIENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HOSPITALModelStoreContainer">
+    <EntitySet Name="APPOINTMENT" EntityType="Self.APPOINTMENT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DOCTOR" EntityType="Self.DOCTOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PATIENT" EntityType="Self.PATIENT" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_APPOINTMENT_DOCTOR" Association="Self.FK_APPOINTMENT_DOCTOR">
+      <End Role="DOCTOR" EntitySet="DOCTOR" />
+      <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_APPOINTMENT_PATIENT" Association="Self.FK_APPOINTMENT_PATIENT">
+      <End Role="PATIENT" EntitySet="PATIENT" />
+      <End Role="APPOINTMENT" EntitySet="APPOINTMENT" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
